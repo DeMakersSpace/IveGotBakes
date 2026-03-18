@@ -1141,7 +1141,7 @@
         </div>
         <div class="faq-item">
           <p class="faq-q">How do I place an order?</p>
-          <p class="faq-a">All items are made to order. Hit the button below and we'll get back to you with availability and collection details.</p>
+          <p class="faq-a">Send a DM on Instagram to @ivegotbakes with your name, phone number, items &amp; quantity, and preferred collection date &amp; time. A confirmation text will be sent and payment collected then.</p>
         </div>
       </div>
     </div>
@@ -1153,8 +1153,162 @@
       <img src="Logo.png" alt="" class="order-mushroom" aria-hidden="true" />
       <p class="order-label">Ready to indulge?</p>
       <h2 class="order-title">Place your<br><em>order today.</em></h2>
-      <p class="order-sub">Handcrafted to order, delivered with care. Drop me a message and we'll sort out the details.</p>
-      <a href="https://www.instagram.com/ivegotbakes/" target="_blank" rel="noopener noreferrer" class="order-btn">Get in Touch</a>
+      <p class="order-sub">Fill in your details below. When you click <em style="font-style:italic;color:var(--brown-light);">DM to Order</em>, your message will be copied — just paste it into the Instagram DM.</p>
+
+      <form id="order-form" onsubmit="return false;" style="text-align:left;margin-bottom:2.25rem;">
+
+        <style>
+          .of-field { margin-bottom:1.1rem; }
+          .of-label {
+            display:block;
+            font-size:0.55rem;
+            letter-spacing:0.28em;
+            text-transform:uppercase;
+            color:var(--brown-light);
+            margin-bottom:0.4rem;
+          }
+          .of-input {
+            width:100%;
+            background:rgba(255,255,255,0.04);
+            border:1px solid rgba(200,160,106,0.22);
+            border-radius:5px;
+            padding:0.65rem 0.9rem;
+            font-family:'Lato',sans-serif;
+            font-size:0.825rem;
+            color:var(--cream);
+            outline:none;
+            transition:border-color 0.2s ease, background 0.2s ease;
+          }
+          .of-input::placeholder { color:rgba(200,170,130,0.3); }
+          .of-input:focus {
+            border-color:rgba(200,160,106,0.55);
+            background:rgba(255,255,255,0.07);
+          }
+          textarea.of-input { resize:vertical; min-height:5rem; line-height:1.6; }
+          .of-row { display:grid; grid-template-columns:1fr 1fr; gap:0.9rem; }
+          @media(max-width:480px){ .of-row { grid-template-columns:1fr; } }
+          .of-note {
+            font-size:0.72rem;
+            color:rgba(200,170,130,0.45);
+            line-height:1.65;
+            border-top:1px solid rgba(200,160,106,0.15);
+            padding-top:0.9rem;
+            margin-top:0.9rem;
+          }
+          /* toast */
+          #order-toast {
+            position:fixed;
+            bottom:2rem;
+            left:50%;
+            transform:translateX(-50%) translateY(1rem);
+            background:#2a1a08;
+            border:1px solid rgba(200,160,106,0.4);
+            color:var(--cream);
+            font-size:0.78rem;
+            letter-spacing:0.06em;
+            padding:0.75rem 1.5rem;
+            border-radius:6px;
+            opacity:0;
+            pointer-events:none;
+            transition:opacity 0.3s ease, transform 0.3s ease;
+            z-index:9999;
+            white-space:nowrap;
+            box-shadow:0 8px 32px rgba(0,0,0,0.45);
+          }
+          #order-toast.show {
+            opacity:1;
+            transform:translateX(-50%) translateY(0);
+          }
+        </style>
+
+        <div class="of-field">
+          <label class="of-label" for="of-name">Name</label>
+          <input class="of-input" id="of-name" type="text" placeholder="Your full name" autocomplete="name" />
+        </div>
+
+        <div class="of-field">
+          <label class="of-label" for="of-phone">Phone Number</label>
+          <input class="of-input" id="of-phone" type="tel" placeholder="e.g. 9123 4567" autocomplete="tel" />
+        </div>
+
+        <div class="of-field">
+          <label class="of-label" for="of-items">Items &amp; Quantity</label>
+          <textarea class="of-input" id="of-items" placeholder="e.g. 1× Original Tiramisu, 2× Dark Choc Brownies (15 pcs)"></textarea>
+        </div>
+
+        <div class="of-row">
+          <div class="of-field">
+            <label class="of-label" for="of-date">Collection Date</label>
+            <input class="of-input" id="of-date" type="date" />
+          </div>
+          <div class="of-field">
+            <label class="of-label" for="of-time">Collection Time</label>
+            <input class="of-input" id="of-time" type="time" />
+          </div>
+        </div>
+
+        <p class="of-note">A confirmation text will be sent once received. Payment is collected upon confirmation.</p>
+
+      </form>
+
+      <button class="order-btn" onclick="dmToOrder()" style="cursor:pointer;border:none;">DM to Order</button>
+
+      <div id="order-toast">✓ Message copied — paste it in the DM!</div>
+
+      <script>
+        function dmToOrder() {
+          var name  = document.getElementById('of-name').value.trim();
+          var phone = document.getElementById('of-phone').value.trim();
+          var items = document.getElementById('of-items').value.trim();
+          var date  = document.getElementById('of-date').value;
+          var time  = document.getElementById('of-time').value;
+
+          // Format date nicely if filled
+          var dateStr = date ? new Date(date + 'T00:00:00').toLocaleDateString('en-SG', {day:'numeric',month:'long',year:'numeric'}) : '—';
+          // Format time nicely if filled
+          var timeStr = '—';
+          if (time) {
+            var parts = time.split(':');
+            var h = parseInt(parts[0], 10);
+            var m = parts[1];
+            var ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            timeStr = h + ':' + m + ' ' + ampm;
+          }
+
+          var msg = 'Hi! I\'d like to place an order 🎂\n\n'
+            + 'Name: ' + (name || '—') + '\n'
+            + 'Phone: ' + (phone || '—') + '\n'
+            + 'Items: ' + (items || '—') + '\n'
+            + 'Collection Date: ' + dateStr + '\n'
+            + 'Collection Time: ' + timeStr;
+
+          navigator.clipboard.writeText(msg).then(function() {
+            showToast();
+          }).catch(function() {
+            // Fallback for older browsers
+            var ta = document.createElement('textarea');
+            ta.value = msg;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast();
+          });
+
+          setTimeout(function() {
+            window.open('https://www.instagram.com/ivegotbakes/', '_blank');
+          }, 400);
+        }
+
+        function showToast() {
+          var t = document.getElementById('order-toast');
+          t.classList.add('show');
+          setTimeout(function(){ t.classList.remove('show'); }, 3500);
+        }
+      </script>
     </div>
   </section>
 
