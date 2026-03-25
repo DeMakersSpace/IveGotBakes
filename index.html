@@ -22,6 +22,7 @@
       --muted:      #9A826A;
       --border:     rgba(139,94,60,0.18);
       --white:      #FFFCF8;
+      --nav-h:      4.5rem;
 
       /* lamp beam colors (hero dark section) */
       --beam-1: #8B5E3C;
@@ -103,6 +104,8 @@
       transition: color 0.25s ease;
     }
     .nav-links a:hover { color: var(--brown-dark); }
+    .nav-links a:focus-visible { color: var(--brown-dark); outline: 2px solid var(--brown-mid); outline-offset: 4px; border-radius: 2px; }
+    .nav-links a:active { color: var(--brown); opacity: 0.75; }
 
     /* ── HERO ── */
     #hero {
@@ -217,7 +220,8 @@
     .hero-logo-wrap {
       position: absolute;
       /* Beam line is visually at ~50% - 8.75rem; put logo bottom ~2rem above it */
-      bottom: calc(50% + 9.5rem);
+      /* offset by nav height so logo clears the fixed nav bar */
+      bottom: calc(50% + 9.5rem - var(--nav-h));
       left: 50%;
       transform: translateX(-50%);
       z-index: 62;
@@ -247,7 +251,8 @@
     .hero-content {
       position: absolute;
       /* Beam line at ~50% - 8.75rem; start content ~1rem below it */
-      top: calc(50% - 7.5rem);
+      /* offset by nav height so content clears the fixed nav bar */
+      top: calc(50% - 7.5rem + var(--nav-h));
       left: 0; right: 0;
       z-index: 60;
       display: flex;
@@ -311,6 +316,7 @@
       box-shadow: 0 4px 24px rgba(139,94,60,0.35);
     }
     .hero-cta:hover { background: var(--brown); }
+    .hero-cta:focus-visible { outline: 2px solid var(--brown-light); outline-offset: 4px; }
     .hero-cta:active { opacity: 0.85; }
 
     @keyframes slideUp {
@@ -748,6 +754,7 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.25);
     }
     .order-btn:hover { background: var(--brown-light); transform: translateY(-2px); }
+    .order-btn:focus-visible { outline: 2px solid var(--brown-light); outline-offset: 4px; }
     .order-btn:active { transform: translateY(0); opacity: 0.9; }
 
     /* ── FOOTER ── */
@@ -1173,7 +1180,7 @@
             border:1px solid rgba(200,160,106,0.22);
             border-radius:5px;
             padding:0.65rem 0.9rem;
-            font-family:'Lato',sans-serif;
+            font-family:'DM Sans',sans-serif;
             font-size:0.825rem;
             color:var(--cream);
             outline:none;
@@ -1299,7 +1306,7 @@
           });
 
           setTimeout(function() {
-            window.open('https://www.instagram.com/ivegotbakes/', '_blank');
+            window.open('https://www.instagram.com/ivegotbakes/', '_blank', 'noopener,noreferrer');
           }, 400);
         }
 
