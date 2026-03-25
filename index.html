@@ -110,14 +110,13 @@
     /* ── HERO ── */
     #hero {
       position: relative;
-      min-height: 75vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       background-color: #1E1008;
-      padding-top: 5rem;
     }
 
     /* lamp stage */
@@ -219,9 +218,8 @@
     /* Logo floats above the beam line */
     .hero-logo-wrap {
       position: absolute;
-      /* Beam line is visually at ~50% - 8.75rem; put logo bottom ~2rem above it */
-      /* offset by nav height so logo clears the fixed nav bar */
-      bottom: calc(50% + 9.5rem - var(--nav-h));
+      /* vh-based offset from 50% — scales with any screen height */
+      bottom: calc(50% + 7vh);
       left: 50%;
       transform: translateX(-50%);
       z-index: 62;
@@ -250,9 +248,8 @@
     /* Text content: tag + title + sub + CTA sit right below the beam */
     .hero-content {
       position: absolute;
-      /* Beam line at ~50% - 8.75rem; start content ~1rem below it */
-      /* offset by nav height so content clears the fixed nav bar */
-      top: calc(50% - 7.5rem + var(--nav-h));
+      /* vh-based offset from 50% — scales with any screen height */
+      top: calc(50% + 5vh);
       left: 0; right: 0;
       z-index: 60;
       display: flex;
@@ -1328,6 +1325,18 @@
     <span class="footer-right">Handcrafted in Singapore &nbsp;·&nbsp; <a href="https://www.instagram.com/ivegotbakes/" target="_blank" rel="noopener noreferrer">@ivegotbakes</a> &nbsp;·&nbsp; <a href="https://www.instagram.com/shen_enqi/" target="_blank" rel="noopener noreferrer">@shen_enqi</a></span>
   </footer>
   <div style="text-align:center;padding:0.75rem 1rem;font-size:0.75rem;opacity:0.5;letter-spacing:0.04em;">Website Designed by <a href="https://www.instagram.com/de.makers.space/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;opacity:0.8;">De Makers Space</a></div>
+
+  <script>
+    /* Keep --nav-h in sync with the actual rendered nav height.
+       This ensures hero content always clears the fixed nav bar,
+       regardless of font scale, zoom level, or screen size. */
+    function syncNavH() {
+      var h = document.querySelector('nav').getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--nav-h', h + 'px');
+    }
+    syncNavH();
+    window.addEventListener('resize', syncNavH);
+  </script>
 
 </body>
 </html>
