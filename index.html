@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IVEGOTBAKES — Handcrafted Tiramisu & Brownies</title>
+  <meta name="description" content="Handcrafted tiramisu and brownies in Singapore, made to order by ivegotbakes." />
+  <meta property="og:title" content="IVEGOTBAKES — Handcrafted Tiramisu & Brownies" />
+  <meta property="og:description" content="Small-batch tiramisu and brownies made to order in Singapore." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="Logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Pulled directly from the mushroom logo */
+      --cream:      #F0EAE0;
+      --cream-deep: #E4DAC8;
+      --brown:      #8B5E3C;
+      --brown-mid:  #A67850;
+      --brown-dark: #4A2E14;
+      --brown-light:#C8A882;
+      --stem:       #D8D2CA;
+      --text:       #2E1C0A;
+      --muted:      #9A826A;
+      --border:     rgba(139,94,60,0.18);
+      --white:      #FFFCF8;
+      --nav-h:      4.5rem;
+
+      /* lamp beam colors (hero dark section) */
+      --beam-1: #8B5E3C;
+      --beam-2: #C8A06A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--nav-h) + 1rem);
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── GRAIN TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0.035'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 1.1rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(240,234,224,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    picture.logo-picture {
+      display: contents;
+    }
+
+    .nav-mushroom {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+
+    .nav-wordmark {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--brown-dark);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--brown-dark); }
+    .nav-links a:focus-visible { color: var(--brown-dark); outline: 2px solid var(--brown-mid); outline-offset: 4px; border-radius: 2px; }
+    .nav-links a:active { color: var(--brown); opacity: 0.75; }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-color: #1E1008;
+    }
+
+    /* lamp stage */
+    .lamp-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: scaleY(1.25);
+      transform-origin: center center;
+    }
+
+    .beam-left {
+      position: absolute;
+      right: 50%;
+      top: 0;
+      height: 14rem;
+      width: 30rem;
+      background-image: conic-gradient(from 270deg at 50% 0%, var(--beam-1), transparent 55%);
+      animation: beamExpand 1s cubic-bezier(0.4,0,0.2,1) 0.3s both;
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0.75;
+    }
+    .beam-left .mb { position:absolute; left:0; bottom:0; width:100%; height:10rem; background:linear-gradient(to top,#1E1008,transparent); z-index:2; }
+    .beam-left .mr { position:absolute; left:0; bottom:0; width:10rem; height:100%; background:linear-gradient(to right,#1E1008,transparent); z-index:2; }
+
+    .beam-right {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 14rem;
+      width: 30rem;
+      background-image: conic-gradient(from 290deg at 50% 0%, var(--beam-2), transparent 55%);
+      animation: beamExpand 1s cubic-bezier(0.4,0,0.2,1) 0.3s both;
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0.75;
+    }
+    .beam-right .mb { position:absolute; right:0; bottom:0; width:100%; height:10rem; background:linear-gradient(to top,#1E1008,transparent); z-index:2; }
+    .beam-right .ml { position:absolute; right:0; bottom:0; width:10rem; height:100%; background:linear-gradient(to left,#1E1008,transparent); z-index:2; }
+
+    .lamp-blur { position:absolute; top:50%; left:0; right:0; height:12rem; transform:translateY(3rem) scaleX(1.5); background:#1E1008; filter:blur(1.5rem); z-index:5; pointer-events:none; }
+
+    .lamp-orb {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      width:26rem; height:8rem;
+      border-radius:9999px;
+      background: var(--beam-2);
+      opacity:0.3;
+      filter:blur(3rem);
+      z-index:50;
+      animation: breathe 7s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    .lamp-inner {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,calc(-50% - 6rem));
+      width:14rem; height:8rem;
+      border-radius:9999px;
+      background: var(--beam-1);
+      filter:blur(2rem);
+      opacity:0.6;
+      z-index:30;
+      animation: beamExpand 1s cubic-bezier(0.4,0,0.2,1) 0.3s both;
+      pointer-events:none;
+    }
+
+    .lamp-line {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%, calc(-50% - 7rem));
+      height:1px; width:30rem;
+      background: var(--beam-2);
+      z-index:50;
+      filter:blur(1px);
+      animation: beamExpand 1s cubic-bezier(0.4,0,0.2,1) 0.3s both;
+      pointer-events:none;
+    }
+
+    .lamp-dark-band {
+      position:absolute; bottom:0; left:0; right:0;
+      height:38%; background:#1E1008;
+      z-index:40; pointer-events:none;
+    }
+
+    @keyframes beamExpand {
+      from { opacity:0; width:10rem; }
+      to   { opacity:1; width:30rem; }
+    }
+    @keyframes breathe {
+      0%,100% { transform:translate(-50%,-50%) scale(1); }
+      50%      { transform:translate(-50%,-50%) scale(1.08); }
+    }
+
+    /* hero content */
+    /* Logo floats above the beam line */
+    .hero-logo-wrap {
+      position: absolute;
+      /* vh-based offset from 50% — scales with any screen height */
+      bottom: calc(50% + 7vh);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 62;
+    }
+
+    .hero-logo-badge {
+      width: 8rem;
+      height: 8rem;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 3px solid rgba(200,160,106,0.45);
+      box-shadow:
+        0 0 0 10px rgba(139,94,60,0.1),
+        0 0 60px rgba(200,160,106,0.35),
+        0 12px 40px rgba(0,0,0,0.5);
+      opacity: 0;
+      animation: popIn 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.2s forwards;
+    }
+
+    @keyframes popIn {
+      from { opacity:0; transform:scale(0.7) translateY(8px); }
+      to   { opacity:1; transform:scale(1) translateY(0); }
+    }
+
+    /* Text content: tag + title + sub + CTA sit right below the beam */
+    .hero-content {
+      position: absolute;
+      /* vh-based offset from 50% — scales with any screen height */
+      top: calc(50% + 5vh);
+      left: 0; right: 0;
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 1.25rem;
+    }
+
+    .hero-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--brown-light);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: slideUp 0.6s ease 0.5s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(3.25rem, 9vw, 6.5rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      opacity: 0;
+      animation: slideUp 0.8s ease 0.65s forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--brown-light);
+    }
+
+    .hero-sub {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      color: rgba(200,160,106,0.7);
+      margin-top: 1.25rem;
+      opacity: 0;
+      animation: slideUp 0.6s ease 0.82s forwards;
+    }
+
+    .hero-cta {
+      margin-top: 2.25rem;
+      display: inline-block;
+      padding: 0.8rem 2.25rem;
+      background: var(--brown-mid);
+      color: var(--cream);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      opacity: 0;
+      animation: slideUp 0.6s ease 1s forwards;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 24px rgba(139,94,60,0.35);
+    }
+    .hero-cta:hover { background: var(--brown); }
+    .hero-cta:focus-visible { outline: 2px solid var(--brown-light); outline-offset: 4px; }
+    .hero-cta:active { opacity: 0.85; }
+
+    @keyframes slideUp {
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* hero → body transition */
+    .hero-fade {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 7rem;
+      background: linear-gradient(to bottom, transparent 0%, var(--cream) 100%);
+      z-index: 70;
+      pointer-events: none;
+    }
+
+    /* scroll hint */
+    .scroll-hint {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 80;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: slideUp 0.5s ease 1.4s forwards;
+    }
+    .scroll-hint span { font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(200,160,106,0.6); }
+    .scroll-line { width: 1px; height: 2.5rem; background: linear-gradient(to bottom, var(--brown-light), transparent); animation: scrollPulse 2.2s ease-in-out infinite; }
+    @keyframes scrollPulse { 0%,100%{ opacity:0.3; transform:scaleY(0.7); } 50%{ opacity:1; transform:scaleY(1); } }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 5.5rem 2rem; }
+
+    .section-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--brown-mid);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--brown-dark);
+    }
+
+    /* ── INTRO BAND (between hero and menu) ── */
+    .intro-band {
+      background: var(--cream);
+      padding: 3.5rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .intro-pills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      background: var(--white);
+    }
+
+    .pill-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--brown-mid);
+      flex-shrink: 0;
+    }
+
+    /* ── MENU ── */
+    #menu {
+      background: var(--cream-deep);
+      position: relative;
+    }
+
+    #menu::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--brown-light), transparent);
+    }
+
+    .menu-header {
+      max-width: 72rem;
+      margin: 0 auto 3.5rem;
+    }
+
+    .menu-grid {
+      max-width: 72rem;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 900px) {
+      .menu-grid { grid-template-columns: repeat(2, 1fr); }
+      .menu-card.big { grid-column: span 2; }
+    }
+    @media (max-width: 600px) {
+      .menu-grid { grid-template-columns: 1fr; }
+      .menu-card.big { grid-column: span 1; grid-template-columns: 1fr; }
+    }
+
+    /* card */
+    .menu-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+      box-shadow:
+        0 2px 8px rgba(74,46,20,0.06),
+        0 1px 2px rgba(74,46,20,0.04);
+    }
+
+    .menu-card:hover {
+      transform: translateY(-5px);
+      box-shadow:
+        0 12px 32px rgba(74,46,20,0.1),
+        0 4px 8px rgba(74,46,20,0.06);
+    }
+
+    .card-img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-img-wrap picture {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .menu-card:hover .card-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .card-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(74,46,20,0.3) 0%, transparent 50%);
+    }
+
+    .js .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(28px);
+      transition:
+        opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+        transform 0.7s cubic-bezier(0.22,1,0.36,1);
+      will-change: opacity, transform;
+    }
+
+    .js .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* flavor tag on image */
+    .card-tag {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      z-index: 2;
+      background: rgba(255,252,248,0.92);
+      border-radius: 999px;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--brown);
+      font-weight: 500;
+    }
+
+    .card-body {
+      padding: 1.25rem 1.4rem 1.5rem;
+    }
+
+    .card-name {
+      font-family: 'Lora', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--brown-dark);
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
+
+    .card-meta {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .card-price {
+      font-family: 'Lora', serif;
+      font-size: 1.35rem;
+      color: var(--brown);
+      font-weight: 600;
+    }
+
+    /* big boy */
+    .menu-card.big {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-radius: 12px;
+    }
+
+    .big .card-img-wrap { height: 100%; }
+    .big .card-img-wrap img { height: 100%; aspect-ratio: unset; min-height: 240px; }
+
+    .big .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem 1.75rem;
+    }
+
+    .big-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(139,94,60,0.08);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.2rem 0.7rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brown-mid);
+      margin-bottom: 1rem;
+      width: fit-content;
+    }
+
+    .price-table {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.55rem 0.9rem;
+      border-radius: 8px;
+      background: var(--cream);
+      border: 1px solid var(--border);
+    }
+
+    .price-row-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .price-row-val {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      color: var(--brown);
+      font-weight: 600;
+    }
+
+    /* ── FRESHNESS BADGE ── */
+    .freshness {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .freshness-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .freshness-icon {
+      width: 1.5rem; height: 1.5rem;
+      border-radius: 50%;
+      background: rgba(139,94,60,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    /* ── FAQ ── */
+    #faq {
+      background: var(--cream);
+    }
+
+    .faq-inner {
+      max-width: 52rem;
+      margin: 0 auto;
+    }
+
+    .faq-list {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 1.6rem 0;
+    }
+
+    .faq-item:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-q {
+      font-family: 'Lora', serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--brown-dark);
+      margin-bottom: 0.5rem;
+      line-height: 1.35;
+    }
+
+    .faq-a {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ── ORDER CTA ── */
+    #order {
+      background: var(--brown-dark);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #order::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 60rem; height: 40rem;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse at center, rgba(139,94,60,0.35), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* grain on dark section */
+    #order::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .order-inner {
+      position: relative;
+      z-index: 10;
+      max-width: 38rem;
+      margin: 0 auto;
+    }
+
+    .order-mushroom {
+      width: 4rem; height: 4rem;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1.5rem;
+      border: 2px solid rgba(200,160,106,0.3);
+      display: block;
+      box-shadow: 0 0 30px rgba(200,160,106,0.2);
+    }
+
+    .order-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--brown-light);
+      margin-bottom: 0.85rem;
+    }
+
+    .order-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+
+    .order-title em {
+      font-style: italic;
+      color: var(--brown-light);
+    }
+
+    .order-sub {
+      font-size: 0.875rem;
+      color: rgba(200,170,130,0.7);
+      margin-bottom: 2.25rem;
+      line-height: 1.75;
+    }
+
+    .order-btn {
+      display: inline-block;
+      padding: 0.9rem 2.75rem;
+      background: var(--brown-mid);
+      color: var(--cream);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background 0.25s ease, transform 0.2s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .order-btn:hover { background: var(--brown-light); transform: translateY(-2px); }
+    .order-btn:focus-visible { outline: 2px solid var(--brown-light); outline-offset: 4px; }
+    .order-btn:active { transform: translateY(0); opacity: 0.9; }
+    .order-btn:disabled { cursor: wait; opacity: 0.7; transform: none; }
+
+    .form-error {
+      display: none;
+      margin-top: 0.45rem;
+      color: #F2B8A0;
+      font-size: 0.72rem;
+      line-height: 1.45;
+    }
+
+    .of-field.has-error .of-input {
+      border-color: rgba(242,184,160,0.8);
+      background: rgba(242,184,160,0.08);
+    }
+
+    .of-field.has-error .form-error {
+      display: block;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #150E05;
+      border-top: 1px solid rgba(139,94,60,0.2);
+      padding: 2.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-logo-img {
+      width: 1.6rem; height: 1.6rem;
+      border-radius: 50%;
+      object-fit: cover;
+      opacity: 0.85;
+    }
+
+    .footer-wordmark {
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(240,234,224,0.5);
+    }
+
+    .footer-right {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: rgba(200,168,130,0.75);
+    }
+
+    .footer-right a {
+      color: var(--brown-light);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    .footer-right a:hover { opacity: 0.7; }
+    .footer-right a:active { opacity: 0.5; }
+
+    /* ══════════════════════════════════════════
+       MOBILE  ≤ 768px
+    ══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+
+      /* NAV */
+      nav {
+        padding: 0.85rem 1.25rem;
+      }
+      .nav-wordmark { font-size: 0.875rem; }
+      .nav-links { gap: 1.5rem; }
+      .nav-links a { font-size: 0.68rem; letter-spacing: 0.12em; }
+
+      /* HERO — keep absolute positioning, just adjust height + sizes */
+      #hero {
+        min-height: 88vh;
+      }
+
+      /* Logo stays absolute — just smaller */
+      .hero-logo-badge {
+        width: 5.5rem;
+        height: 5.5rem;
+      }
+
+      /* Content stays absolute — just adjust padding + type */
+      .hero-content {
+        padding: 0 1.5rem;
+      }
+
+      .hero-title {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+      }
+
+      .hero-sub {
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        margin-top: 0.875rem;
+      }
+
+      .hero-cta {
+        margin-top: 1.75rem;
+        padding: 0.875rem 2rem;
+        font-size: 0.68rem;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Lamp — cap widths to viewport so nothing overflows */
+      .beam-left, .beam-right { width: min(30rem, 55vw); }
+      .lamp-orb  { width: min(26rem, 90vw); }
+      .lamp-line { width: min(30rem, 88vw); }
+      .lamp-inner { width: min(14rem, 50vw); }
+
+      /* Hero fade */
+      .hero-fade { height: 5rem; }
+
+      /* SECTIONS */
+      section { padding: 3rem 1.25rem; }
+
+      .section-title { font-size: clamp(1.75rem, 7vw, 2.5rem); }
+
+      /* INTRO BAND */
+      .intro-band { padding: 1.5rem 1.25rem; }
+      .intro-pills { gap: 0.5rem; }
+      .pill { font-size: 0.68rem; padding: 0.35rem 0.8rem; }
+
+      /* MENU — force single column on mobile */
+      .menu-header { margin-bottom: 2rem; }
+      .menu-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+      }
+      .menu-card.big {
+        grid-column: span 1 !important;
+        grid-template-columns: 1fr !important;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Big boy card — single column stacks image above content */
+      .menu-card.big {
+        grid-template-columns: 1fr;
+      }
+      .big .card-img-wrap {
+        height: auto;
+      }
+      .big .card-img-wrap img {
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 4/3;
+      }
+      .big .card-body {
+        padding: 1.25rem 1.4rem 1.5rem;
+      }
+
+      /* FRESHNESS */
+      .freshness {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.875rem;
+        padding: 1.25rem;
+      }
+
+      /* FAQ */
+      .faq-q { font-size: 0.975rem; }
+      .faq-a  { font-size: 0.825rem; }
+      .faq-item { padding: 1.25rem 0; }
+
+      /* ORDER CTA */
+      #order { padding: 3.5rem 1.25rem; }
+      .order-title { font-size: clamp(2rem, 8vw, 2.75rem); }
+      .order-sub { font-size: 0.825rem; margin-bottom: 1.75rem; }
+      .order-btn {
+        padding: 0.875rem 2rem;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      /* FOOTER */
+      footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.75rem 1.25rem;
+        gap: 0.75rem;
+      }
+      .footer-right { line-height: 2; }
+    }
+
+    /* ══════════════════════════════════════════
+       SMALL MOBILE  ≤ 480px
+    ══════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      nav { padding: 0.8rem 1rem; }
+      .nav-links { gap: 1.1rem; }
+      .nav-links a { font-size: 0.62rem; }
+
+      #hero { padding-top: 5rem; }
+      .hero-logo-badge { width: 5rem; height: 5rem; }
+      .hero-tag { font-size: 0.58rem; letter-spacing: 0.28em; }
+
+      section { padding: 2.5rem 1rem; }
+      .intro-band { padding: 1.25rem 1rem; }
+      #order { padding: 3rem 1rem; }
+
+      /* Single column menu with reduced gap */
+      .menu-grid { gap: 0.875rem; }
+
+      footer { padding: 1.5rem 1rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .js .reveal-on-scroll {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <div class="nav-logo-wrap">
+      <picture class="logo-picture">
+        <source srcset="logo.webp" type="image/webp" />
+        <img src="Logo.png" alt="ivegotbakes mushroom" class="nav-mushroom" width="689" height="919" />
+      </picture>
+      <span class="nav-wordmark">ivegotbakes</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#order">Order</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+
+    <!-- lamp stage -->
+    <div class="lamp-stage" aria-hidden="true">
+      <div class="beam-left"><div class="mb"></div><div class="mr"></div></div>
+      <div class="beam-right"><div class="mb"></div><div class="ml"></div></div>
+      <div class="lamp-blur"></div>
+      <div class="lamp-orb"></div>
+      <div class="lamp-inner"></div>
+      <div class="lamp-line"></div>
+      <div class="lamp-dark-band"></div>
+    </div>
+
+    <!-- logo sits above the beam -->
+    <div class="hero-logo-wrap">
+      <picture class="logo-picture">
+        <source srcset="logo.webp" type="image/webp" />
+        <img src="Logo.png" alt="ivegotbakes" class="hero-logo-badge" width="689" height="919" />
+      </picture>
+    </div>
+
+    <!-- text content sits right below the beam -->
+    <div class="hero-content">
+      <p class="hero-tag">Handcrafted in Singapore</p>
+      <h1 class="hero-title">IveGot<em>Bakes</em></h1>
+      <p class="hero-sub">Tiramisu &nbsp;·&nbsp; Brownies &nbsp;·&nbsp; Made to order</p>
+      <a href="#menu" class="hero-cta">Explore the Menu</a>
+    </div>
+
+    <!-- gradient fade to cream -->
+    <div class="hero-fade"></div>
+
+  </section>
+
+  <!-- ── INTRO BAND ── -->
+  <div class="intro-band reveal-on-scroll">
+    <div class="intro-pills">
+      <span class="pill"><span class="pill-dot"></span>Small batch, big love</span>
+      <span class="pill"><span class="pill-dot"></span>Made to order</span>
+      <span class="pill"><span class="pill-dot"></span>Serves 2–16 pax</span>
+      <span class="pill"><span class="pill-dot"></span>Singapore</span>
+    </div>
+  </div>
+
+  <!-- ── MENU ── -->
+  <section id="menu" class="reveal-on-scroll">
+    <div class="menu-header">
+      <p class="section-label">My Menu</p>
+      <h2 class="section-title">Small batch.<br><em>Big flavour.</em></h2>
+    </div>
+
+    <div class="menu-grid">
+
+      <!-- Original Tiramisu -->
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <picture>
+            <source srcset="original-tiramisu.webp" type="image/webp" />
+            <img src="original%20tiramisu.jpg" alt="Original Tiramisu" loading="lazy" decoding="async" width="1105" height="842" />
+          </picture>
+          <span class="card-tag">Classic</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Original Tiramisu</h3>
+          <p class="card-meta">Serves 2–4 pax</p>
+          <p class="card-price">$17.50</p>
+        </div>
+      </div>
+
+      <!-- Biscoff Tiramisu -->
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <picture>
+            <source srcset="biscoff-tiramisu.webp" type="image/webp" />
+            <img src="biscoff%20tiramisu.jpg" alt="Biscoff Tiramisu" loading="lazy" decoding="async" width="896" height="1068" />
+          </picture>
+          <span class="card-tag">Speculoos</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Biscoff Tiramisu</h3>
+          <p class="card-meta">Serves 2–4 pax</p>
+          <p class="card-price">$19.90</p>
+        </div>
+      </div>
+
+      <!-- Lemon Tiramisu -->
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <picture>
+            <source srcset="lemon-tiramisu.webp" type="image/webp" />
+            <img src="lemontiramisu.png" alt="Lemon Tiramisu" loading="lazy" decoding="async" width="1952" height="2164" />
+          </picture>
+          <span class="card-tag">Citrus</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Lemon Tiramisu</h3>
+          <p class="card-meta">Serves 2–4 pax</p>
+          <p class="card-price">$19.90</p>
+        </div>
+      </div>
+
+      <!-- Big Boy Tiramisu -->
+      <div class="menu-card big">
+        <div class="card-img-wrap">
+          <picture>
+            <source srcset="bigboy-tiramisu.webp" type="image/webp" />
+            <img src="bigboytiramisu.png" alt="Big Boy Tiramisu" loading="lazy" decoding="async" width="880" height="971" />
+          </picture>
+          <span class="card-tag">Party size</span>
+        </div>
+        <div class="card-body">
+          <span class="big-note">★ 4× bigger than regular</span>
+          <h3 class="card-name" style="font-size:1.5rem;">Big Boy Tiramisu</h3>
+          <p class="card-meta">Serves 12–16 pax</p>
+          <div class="price-table">
+            <div class="price-row">
+              <span class="price-row-label">Original</span>
+              <span class="price-row-val">$65</span>
+            </div>
+            <div class="price-row">
+              <span class="price-row-label">Biscoff</span>
+              <span class="price-row-val">$75</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dark Chocolate Brownies -->
+      <div class="menu-card">
+        <div class="card-img-wrap">
+          <picture>
+            <source srcset="brownies.webp" type="image/webp" />
+            <img src="Brownies.jpg" alt="Dark Chocolate Brownies" loading="lazy" decoding="async" width="854" height="940" />
+          </picture>
+          <span class="card-tag">Fudgy</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Dark Choc Brownies</h3>
+          <p class="card-meta">Rich &amp; dense</p>
+          <div class="price-table" style="margin-top:0.75rem;">
+            <div class="price-row">
+              <span class="price-row-label">15 pcs</span>
+              <span class="price-row-val">$14.50</span>
+            </div>
+            <div class="price-row">
+              <span class="price-row-label">36 pcs</span>
+              <span class="price-row-val">$35</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FRESHNESS ── -->
+  <div class="freshness reveal-on-scroll">
+    <div class="freshness-item">
+      <div class="freshness-icon">🧊</div>
+      <span>Packed with ice packs &amp; insulated packaging</span>
+    </div>
+    <div class="freshness-item">
+      <div class="freshness-icon">📅</div>
+      <span>Best within 3 days from collection</span>
+    </div>
+    <div class="freshness-item">
+      <div class="freshness-icon">⏱</div>
+      <span>Lasts ~4 hours outside the fridge</span>
+    </div>
+  </div>
+
+  <!-- ── FAQ ── -->
+  <section id="faq" class="reveal-on-scroll">
+    <div class="faq-inner">
+      <p class="section-label">FAQ</p>
+      <h2 class="section-title">Common <em style="font-style:italic;">questions.</em></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <p class="faq-q">How long can the tiramisu last outside?</p>
+          <p class="faq-a">Roughly 4 hours. The tiramisus are packed with ice packs and insulated packaging to keep them fresh during transport.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">How long should I keep it in the fridge?</p>
+          <p class="faq-a">Best consumed within 3 days from collection. Keep the container sealed and refrigerated until ready to serve.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">Is the Big Boy suitable for parties?</p>
+          <p class="faq-a">Absolutely — it serves 12–16 pax and is 4× bigger than the regular size. Perfect for gatherings and office sharing. Available in Original and Biscoff.</p>
+        </div>
+        <div class="faq-item">
+          <p class="faq-q">How do I place an order?</p>
+          <p class="faq-a">Send a DM on Instagram to @ivegotbakes with your name, phone number, items &amp; quantity, and preferred collection date &amp; time. A confirmation text will be sent and payment collected then.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ORDER CTA ── -->
+  <section id="order" class="reveal-on-scroll">
+    <div class="order-inner">
+      <picture class="logo-picture" aria-hidden="true">
+        <source srcset="logo.webp" type="image/webp" />
+        <img src="Logo.png" alt="" class="order-mushroom" width="689" height="919" />
+      </picture>
+      <p class="order-label">Ready to indulge?</p>
+      <h2 class="order-title">Place your<br><em>order today.</em></h2>
+      <p class="order-sub">Fill in your details below. When you click <em style="font-style:italic;color:var(--brown-light);">DM to Order</em>, your message will be copied — just paste it into the Instagram DM.</p>
+
+      <form id="order-form" onsubmit="return false;" style="text-align:left;margin-bottom:2.25rem;" novalidate>
+
+        <style>
+          .of-field { margin-bottom:1.1rem; }
+          .of-label {
+            display:block;
+            font-size:0.55rem;
+            letter-spacing:0.28em;
+            text-transform:uppercase;
+            color:var(--brown-light);
+            margin-bottom:0.4rem;
+          }
+          .of-input {
+            width:100%;
+            background:rgba(255,255,255,0.04);
+            border:1px solid rgba(200,160,106,0.22);
+            border-radius:5px;
+            padding:0.65rem 0.9rem;
+            font-family:'DM Sans',sans-serif;
+            font-size:0.825rem;
+            color:var(--cream);
+            outline:none;
+            transition:border-color 0.2s ease, background 0.2s ease;
+          }
+          .of-input::placeholder { color:rgba(200,170,130,0.3); }
+          .of-input:focus {
+            border-color:rgba(200,160,106,0.55);
+            background:rgba(255,255,255,0.07);
+          }
+          .of-input:invalid { box-shadow:none; }
+          textarea.of-input { resize:vertical; min-height:5rem; line-height:1.6; }
+          .of-row { display:grid; grid-template-columns:1fr 1fr; gap:0.9rem; }
+          @media(max-width:480px){ .of-row { grid-template-columns:1fr; } }
+          .of-note {
+            font-size:0.72rem;
+            color:rgba(200,170,130,0.45);
+            line-height:1.65;
+            border-top:1px solid rgba(200,160,106,0.15);
+            padding-top:0.9rem;
+            margin-top:0.9rem;
+          }
+          /* toast */
+          #order-toast {
+            position:fixed;
+            bottom:2rem;
+            left:50%;
+            transform:translateX(-50%) translateY(1rem);
+            background:#2a1a08;
+            border:1px solid rgba(200,160,106,0.4);
+            color:var(--cream);
+            font-size:0.78rem;
+            letter-spacing:0.06em;
+            padding:0.75rem 1.5rem;
+            border-radius:6px;
+            opacity:0;
+            pointer-events:none;
+            transition:opacity 0.3s ease, transform 0.3s ease;
+            z-index:9999;
+            white-space:nowrap;
+            box-shadow:0 8px 32px rgba(0,0,0,0.45);
+          }
+          #order-toast.show {
+            opacity:1;
+            transform:translateX(-50%) translateY(0);
+          }
+          #order-toast.error {
+            border-color:rgba(242,184,160,0.65);
+            color:#F2B8A0;
+          }
+        </style>
+
+        <div class="of-field">
+          <label class="of-label" for="of-name">Name</label>
+          <input class="of-input" id="of-name" type="text" placeholder="Your full name" autocomplete="name" required maxlength="80" aria-describedby="of-name-error" />
+          <p class="form-error" id="of-name-error"></p>
+        </div>
+
+        <div class="of-field">
+          <label class="of-label" for="of-phone">Phone Number</label>
+          <input class="of-input" id="of-phone" type="tel" placeholder="e.g. 9123 4567" autocomplete="tel" required maxlength="20" pattern="(?:\+?65\s?)?[689]\d{3}\s?\d{4}" title="Use a valid Singapore mobile number, e.g. 9123 4567." aria-describedby="of-phone-error" />
+          <p class="form-error" id="of-phone-error"></p>
+        </div>
+
+        <div class="of-field">
+          <label class="of-label" for="of-items">Items &amp; Quantity</label>
+          <textarea class="of-input" id="of-items" placeholder="e.g. 1× Original Tiramisu, 2× Dark Choc Brownies (15 pcs)" required maxlength="240" aria-describedby="of-items-error"></textarea>
+          <p class="form-error" id="of-items-error"></p>
+        </div>
+
+        <div class="of-row">
+          <div class="of-field">
+            <label class="of-label" for="of-date">Collection Date</label>
+            <input class="of-input" id="of-date" type="date" required aria-describedby="of-date-error" />
+            <p class="form-error" id="of-date-error"></p>
+          </div>
+          <div class="of-field">
+            <label class="of-label" for="of-time">Collection Time</label>
+            <input class="of-input" id="of-time" type="time" required aria-describedby="of-time-error" />
+            <p class="form-error" id="of-time-error"></p>
+          </div>
+        </div>
+
+        <p class="of-note">A confirmation text will be sent once received. Payment is collected upon confirmation.</p>
+
+      </form>
+
+      <button class="order-btn" id="order-button" type="button" onclick="dmToOrder()" style="cursor:pointer;border:none;">DM to Order</button>
+
+      <div id="order-toast" role="status" aria-live="polite">Message copied — paste it in the DM!</div>
+
+      <script>
+        var orderFields = ['of-name', 'of-phone', 'of-items', 'of-date', 'of-time'];
+
+        function setFieldError(field, message) {
+          var wrap = field.closest('.of-field');
+          var error = document.getElementById(field.id + '-error');
+          if (!wrap || !error) return;
+          wrap.classList.toggle('has-error', Boolean(message));
+          field.setAttribute('aria-invalid', message ? 'true' : 'false');
+          error.textContent = message || '';
+        }
+
+        function validateOrderForm() {
+          var firstInvalid = null;
+          orderFields.forEach(function(id) {
+            var field = document.getElementById(id);
+            var message = '';
+
+            if (field.validity.valueMissing) {
+              message = 'Please fill this in before sending your order.';
+            } else if (field.validity.patternMismatch) {
+              message = field.title || 'Please check this format.';
+            }
+
+            if (id === 'of-date' && field.value) {
+              var selected = new Date(field.value + 'T00:00:00');
+              var today = new Date();
+              today.setHours(0, 0, 0, 0);
+              if (selected < today) {
+                message = 'Choose today or a later collection date.';
+              }
+            }
+
+            setFieldError(field, message);
+            if (message && !firstInvalid) firstInvalid = field;
+          });
+
+          if (firstInvalid) {
+            firstInvalid.focus({ preventScroll: true });
+            firstInvalid.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'center' });
+            showToast('Please complete the highlighted order details.', true);
+            return false;
+          }
+
+          return true;
+        }
+
+        function dmToOrder() {
+          if (!validateOrderForm()) return;
+
+          var btn = document.getElementById('order-button');
+          btn.disabled = true;
+
+          var name  = document.getElementById('of-name').value.trim();
+          var phone = document.getElementById('of-phone').value.trim();
+          var items = document.getElementById('of-items').value.trim();
+          var date  = document.getElementById('of-date').value;
+          var time  = document.getElementById('of-time').value;
+
+          // Format date nicely if filled
+          var dateStr = new Date(date + 'T00:00:00').toLocaleDateString('en-SG', {day:'numeric',month:'long',year:'numeric'});
+          // Format time nicely if filled
+          var parts = time.split(':');
+          var h = parseInt(parts[0], 10);
+          var m = parts[1];
+          var ampm = h >= 12 ? 'PM' : 'AM';
+          h = h % 12 || 12;
+          var timeStr = h + ':' + m + ' ' + ampm;
+
+          var msg = 'Hi! I\'d like to place an order 🎂\n\n'
+            + 'Name: ' + name + '\n'
+            + 'Phone: ' + phone + '\n'
+            + 'Items: ' + items + '\n'
+            + 'Collection Date: ' + dateStr + '\n'
+            + 'Collection Time: ' + timeStr;
+
+          var instagram = window.open('https://www.instagram.com/ivegotbakes/', '_blank');
+          if (instagram) instagram.opener = null;
+          var copyPromise = navigator.clipboard && navigator.clipboard.writeText
+            ? navigator.clipboard.writeText(msg)
+            : Promise.reject();
+
+          copyPromise.then(function() {
+            showToast(instagram ? 'Message copied — paste it in the Instagram DM!' : 'Message copied. Open Instagram and paste it into @ivegotbakes.');
+          }).catch(function() {
+            // Fallback for older browsers
+            var ta = document.createElement('textarea');
+            ta.value = msg;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            var copied = document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast(copied ? 'Message copied — paste it in the Instagram DM!' : 'Instagram opened. Copy your order details manually if the message did not copy.', !copied);
+          }).finally(function() {
+            btn.disabled = false;
+          });
+        }
+
+        function showToast(message, isError) {
+          var t = document.getElementById('order-toast');
+          t.textContent = message || 'Message copied — paste it in the DM!';
+          t.classList.toggle('error', Boolean(isError));
+          t.classList.add('show');
+          setTimeout(function(){ t.classList.remove('show'); }, 3500);
+        }
+
+        function prefersReducedMotion() {
+          return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        }
+
+        orderFields.forEach(function(id) {
+          var field = document.getElementById(id);
+          field.addEventListener('input', function() {
+            if (field.getAttribute('aria-invalid') === 'true') validateOrderForm();
+          });
+        });
+      </script>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-left">
+      <picture class="logo-picture" aria-hidden="true">
+        <source srcset="logo.webp" type="image/webp" />
+        <img src="Logo.png" alt="" class="footer-logo-img" width="689" height="919" />
+      </picture>
+      <span class="footer-wordmark">ivegotbakes</span>
+    </div>
+    <span class="footer-right">Handcrafted in Singapore &nbsp;·&nbsp; <a href="https://www.instagram.com/ivegotbakes/" target="_blank" rel="noopener noreferrer">@ivegotbakes</a> &nbsp;·&nbsp; <a href="https://www.instagram.com/shen_enqi/" target="_blank" rel="noopener noreferrer">@shen_enqi</a></span>
+  </footer>
+  <div style="text-align:center;padding:0.75rem 1rem;font-size:0.75rem;opacity:0.5;letter-spacing:0.04em;">Website Designed by <a href="https://www.instagram.com/de.makers.space/" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;opacity:0.8;">De Makers Space</a></div>
+
+  <script>
+    /* Keep --nav-h in sync with the actual rendered nav height.
+       This ensures hero content always clears the fixed nav bar,
+       regardless of font scale, zoom level, or screen size. */
+    function syncNavH() {
+      var h = document.querySelector('nav').getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--nav-h', h + 'px');
+    }
+    syncNavH();
+    window.addEventListener('resize', syncNavH);
+
+    document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        var target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+
+        event.preventDefault();
+        target.scrollIntoView({
+          behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+          block: 'start'
+        });
+        history.pushState(null, '', link.getAttribute('href'));
+      });
+    });
+
+    var dateInput = document.getElementById('of-date');
+    if (dateInput) {
+      var today = new Date();
+      today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+      dateInput.min = today.toISOString().split('T')[0];
+    }
+
+    var revealTargets = document.querySelectorAll('.reveal-on-scroll');
+    if ('IntersectionObserver' in window) {
+      var revealObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          entry.target.classList.toggle('is-visible', entry.isIntersecting);
+        });
+      }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+
+      revealTargets.forEach(function(target) {
+        revealObserver.observe(target);
+      });
+    } else {
+      revealTargets.forEach(function(target) {
+        target.classList.add('is-visible');
+      });
+    }
+  </script>
+
+</body>
+</html>

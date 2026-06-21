@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ivegotbakes — Product Overview</title>
+  <meta name="description" content="Product overview and pricing for ivegotbakes tiramisu and brownies in Singapore." />
+  <meta property="og:title" content="ivegotbakes — Product Overview" />
+  <meta property="og:description" content="Tiramisu and brownie menu, pricing, serving sizes, and freshness notes." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="Logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --cream:      #F0EAE0;
+      --cream-deep: #E4DAC8;
+      --brown:      #8B5E3C;
+      --brown-mid:  #A67850;
+      --brown-dark: #4A2E14;
+      --brown-light:#C8A882;
+      --muted:      #9A826A;
+      --border:     rgba(139,94,60,0.18);
+      --white:      #FFFCF8;
+      --text:       #2E1C0A;
+    }
+
+    /* ── BASE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #D4C9B8;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+    }
+
+    /* ── DOCUMENT SHELL ── */
+    .doc {
+      background: var(--white);
+      width: 100%;
+      max-width: 680px;
+      border: 1px solid var(--border);
+      box-shadow:
+        0 2px 4px rgba(74,46,20,0.04),
+        0 8px 32px rgba(74,46,20,0.10),
+        0 24px 64px rgba(74,46,20,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* grain overlay */
+    .doc::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0.028'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* ── HEADER ── */
+    .doc-header {
+      background: var(--brown-dark);
+      padding: 2.75rem 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* radial glow */
+    .doc-header::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 36rem; height: 20rem;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse at center, rgba(139,94,60,0.4), transparent 70%);
+      pointer-events: none;
+    }
+
+    .header-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .header-logo {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(200,160,106,0.4);
+      box-shadow: 0 0 28px rgba(200,160,106,0.25), 0 4px 16px rgba(0,0,0,0.4);
+      margin-bottom: 0.5rem;
+    }
+
+    picture.logo-picture {
+      display: contents;
+    }
+
+    .product-picture {
+      display: contents;
+    }
+
+    .header-eyebrow {
+      font-size: 0.58rem;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--brown-light);
+    }
+
+    .header-title {
+      font-family: 'Lora', serif;
+      font-size: 2.4rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--cream);
+    }
+
+    .header-title em {
+      font-style: italic;
+      color: var(--brown-light);
+    }
+
+    .header-rule {
+      width: 2.5rem;
+      height: 1px;
+      background: rgba(200,160,106,0.4);
+      margin: 0.75rem auto 0;
+    }
+
+    .header-tagline {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(200,160,106,0.65);
+      margin-top: 0.5rem;
+    }
+
+    /* ── PILL BAND ── */
+    .pill-band {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 1.1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--cream);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      background: var(--white);
+    }
+
+    .pill-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--brown-mid);
+      flex-shrink: 0;
+    }
+
+    /* ── BODY ── */
+    .doc-body {
+      padding: 2.5rem 3rem 2rem;
+    }
+
+    /* ── CATEGORY HEADER ── */
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .cat-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+    }
+
+    .cat-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--brown-mid);
+      white-space: nowrap;
+    }
+
+    /* ── PRODUCT ROWS ── */
+    .product-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 2.5rem;
+    }
+
+    .product-row {
+      display: grid;
+      grid-template-columns: 5.5rem 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .product-row:last-child {
+      border-bottom: none;
+    }
+
+    .product-img {
+      width: 5.5rem;
+      height: 4rem;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+
+    .product-info {}
+
+    .product-tag {
+      display: inline-block;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--brown-mid);
+      background: rgba(139,94,60,0.08);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.15rem 0.55rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .product-name {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--brown-dark);
+      line-height: 1.2;
+    }
+
+    .product-serves {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    .product-price-wrap {
+      text-align: right;
+    }
+
+    .product-price {
+      font-family: 'Lora', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--brown);
+      white-space: nowrap;
+    }
+
+    /* ── BIG BOY CARD ── */
+    .product-row.big-boy {
+      grid-template-columns: 5.5rem 1fr auto;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 0.25rem;
+    }
+
+    .big-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brown-mid);
+      background: rgba(139,94,60,0.1);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.18rem 0.55rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .price-table {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-top: 0;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .price-row-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .price-row-val {
+      font-family: 'Lora', serif;
+      font-size: 1.05rem;
+      color: var(--brown);
+      font-weight: 600;
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 0 0 2.5rem;
+    }
+
+    /* ── FRESHNESS STRIP ── */
+    .freshness-strip {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .freshness-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .freshness-icon {
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    /* ── HOW TO ORDER ── */
+    .order-box {
+      background: var(--brown-dark);
+      border-radius: 10px;
+      padding: 1.6rem 1.75rem;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .order-box::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 30rem; height: 16rem;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse at center, rgba(139,94,60,0.35), transparent 70%);
+      pointer-events: none;
+    }
+
+    .order-inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    .order-label {
+      font-size: 0.56rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--brown-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .order-title {
+      font-family: 'Lora', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      margin-bottom: 0.75rem;
+      line-height: 1.15;
+    }
+
+    .order-title em {
+      font-style: italic;
+      color: var(--brown-light);
+    }
+
+    .order-steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .order-steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      font-size: 0.78rem;
+      color: rgba(200,170,130,0.8);
+      line-height: 1.55;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 1.3rem;
+      height: 1.3rem;
+      border-radius: 50%;
+      border: 1px solid rgba(200,160,106,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 500;
+      color: var(--brown-light);
+      margin-top: 0.12rem;
+    }
+
+    .order-handle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.1rem;
+      padding: 0.5rem 1.1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(200,160,106,0.25);
+      border-radius: 4px;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--brown-light);
+    }
+
+    /* ── FOOTER ── */
+    .doc-footer {
+      border-top: 1px solid var(--border);
+      padding: 1.1rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--cream);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-brand {
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .footer-note {
+      font-size: 0.62rem;
+      color: rgba(154,130,106,0.6);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-credit {
+      width: 100%;
+      text-align: center;
+      font-size: 0.62rem;
+      color: rgba(154,130,106,0.45);
+      letter-spacing: 0.04em;
+      padding-top: 0.35rem;
+    }
+
+    .footer-credit a {
+      color: rgba(154,130,106,0.6);
+      text-decoration: none;
+    }
+
+    .footer-credit a:hover {
+      color: var(--muted);
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .doc {
+        box-shadow: none;
+        border: none;
+        max-width: 100%;
+        width: 100%;
+      }
+
+      .doc-header {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .order-box {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .pill-band,
+      .freshness-strip,
+      .product-row.big-boy {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      body { padding: 1rem 0.75rem; }
+
+      .doc-header { padding: 2rem 1.5rem 1.75rem; }
+      .doc-body { padding: 1.75rem 1.5rem 1.5rem; }
+      .doc-footer { padding: 1rem 1.5rem; }
+
+      .product-row {
+        grid-template-columns: 4.5rem 1fr auto;
+      }
+
+      .product-img {
+        width: 4.5rem;
+        height: 3.25rem;
+      }
+
+      .product-row.big-boy {
+        grid-template-columns: 4.5rem 1fr;
+      }
+
+      .product-row.big-boy .product-price-wrap {
+        grid-column: 1 / -1;
+        text-align: left;
+        padding-top: 0.5rem;
+        border-top: 1px solid var(--border);
+        margin-top: 0.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="doc">
+
+    <!-- HEADER -->
+    <div class="doc-header">
+      <div class="header-inner">
+        <picture class="logo-picture">
+          <source srcset="logo.webp" type="image/webp" />
+          <img src="Logo.png" alt="ivegotbakes logo" class="header-logo" width="689" height="919" />
+        </picture>
+        <p class="header-eyebrow">Product Overview</p>
+        <h1 class="header-title">IveGot<em>Bakes</em></h1>
+        <div class="header-rule"></div>
+        <p class="header-tagline">Handcrafted in Singapore &nbsp;·&nbsp; Made to order</p>
+      </div>
+    </div>
+
+    <!-- PILL BAND -->
+    <div class="pill-band">
+      <span class="pill"><span class="pill-dot"></span>Small batch, big love</span>
+      <span class="pill"><span class="pill-dot"></span>Made to order</span>
+      <span class="pill"><span class="pill-dot"></span>Serves 2–16 pax</span>
+      <span class="pill"><span class="pill-dot"></span>Singapore</span>
+    </div>
+
+    <!-- BODY -->
+    <div class="doc-body">
+
+      <!-- TIRAMISU -->
+      <div class="cat-header">
+        <span class="cat-label">Tiramisu</span>
+      </div>
+
+      <div class="product-list">
+
+        <!-- Original -->
+        <div class="product-row">
+          <picture class="product-picture">
+            <source srcset="original-tiramisu.webp" type="image/webp" />
+            <img src="original%20tiramisu.jpg" alt="Original Tiramisu" class="product-img" loading="lazy" decoding="async" width="1105" height="842" />
+          </picture>
+          <div class="product-info">
+            <span class="product-tag">Classic</span>
+            <p class="product-name">Original Tiramisu</p>
+            <p class="product-serves">Serves 2–4 pax</p>
+          </div>
+          <div class="product-price-wrap">
+            <p class="product-price">$17.50</p>
+          </div>
+        </div>
+
+        <!-- Biscoff -->
+        <div class="product-row">
+          <picture class="product-picture">
+            <source srcset="biscoff-tiramisu.webp" type="image/webp" />
+            <img src="biscoff%20tiramisu.jpg" alt="Biscoff Tiramisu" class="product-img" loading="lazy" decoding="async" width="896" height="1068" />
+          </picture>
+          <div class="product-info">
+            <span class="product-tag">Speculoos</span>
+            <p class="product-name">Biscoff Tiramisu</p>
+            <p class="product-serves">Serves 2–4 pax</p>
+          </div>
+          <div class="product-price-wrap">
+            <p class="product-price">$19.90</p>
+          </div>
+        </div>
+
+        <!-- Lemon -->
+        <div class="product-row">
+          <picture class="product-picture">
+            <source srcset="lemon-tiramisu.webp" type="image/webp" />
+            <img src="lemontiramisu.png" alt="Lemon Tiramisu" class="product-img" loading="lazy" decoding="async" width="1952" height="2164" />
+          </picture>
+          <div class="product-info">
+            <span class="product-tag">Citrus</span>
+            <p class="product-name">Lemon Tiramisu</p>
+            <p class="product-serves">Serves 2–4 pax</p>
+          </div>
+          <div class="product-price-wrap">
+            <p class="product-price">$19.90</p>
+          </div>
+        </div>
+
+        <!-- Big Boy -->
+        <div class="product-row big-boy">
+          <picture class="product-picture">
+            <source srcset="bigboy-tiramisu.webp" type="image/webp" />
+            <img src="bigboytiramisu.png" alt="Big Boy Tiramisu" class="product-img" loading="lazy" decoding="async" width="880" height="971" />
+          </picture>
+          <div class="product-info">
+            <span class="big-badge">★ Party size &nbsp;·&nbsp; 4× bigger</span>
+            <p class="product-name">Big Boy Tiramisu</p>
+            <p class="product-serves">Serves 12–16 pax</p>
+          </div>
+          <div class="product-price-wrap">
+            <div class="price-table">
+              <div class="price-row">
+                <span class="price-row-label">Original</span>
+                <span class="price-row-val">$65</span>
+              </div>
+              <div class="price-row">
+                <span class="price-row-label">Biscoff</span>
+                <span class="price-row-val">$75</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- DIVIDER -->
+      <div class="section-divider"></div>
+
+      <!-- BROWNIES -->
+      <div class="cat-header">
+        <span class="cat-label">Brownies</span>
+      </div>
+
+      <div class="product-list">
+
+        <div class="product-row">
+          <picture class="product-picture">
+            <source srcset="brownies.webp" type="image/webp" />
+            <img src="Brownies.jpg" alt="Dark Chocolate Brownies" class="product-img" loading="lazy" decoding="async" width="854" height="940" />
+          </picture>
+          <div class="product-info">
+            <span class="product-tag">Fudgy</span>
+            <p class="product-name">Dark Choc Brownies</p>
+            <p class="product-serves">Rich &amp; dense</p>
+          </div>
+          <div class="product-price-wrap">
+            <div class="price-table">
+              <div class="price-row">
+                <span class="price-row-label">15 pcs</span>
+                <span class="price-row-val">$14.50</span>
+              </div>
+              <div class="price-row">
+                <span class="price-row-label">36 pcs</span>
+                <span class="price-row-val">$35</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FRESHNESS -->
+      <div class="freshness-strip">
+        <div class="freshness-row">
+          <span class="freshness-icon">🧊</span>
+          <span>Packed with ice packs &amp; insulated packaging</span>
+        </div>
+        <div class="freshness-row">
+          <span class="freshness-icon">📅</span>
+          <span>Best within 3 days from collection date</span>
+        </div>
+        <div class="freshness-row">
+          <span class="freshness-icon">⏱</span>
+          <span>Lasts approximately 4 hours outside the fridge</span>
+        </div>
+      </div>
+
+      <!-- HOW TO ORDER -->
+      <div class="order-box">
+        <div class="order-inner">
+          <p class="order-label">How to order</p>
+          <h2 class="order-title">Place your <em>order today.</em></h2>
+          <ol class="order-steps">
+            <li>
+              <span class="step-num">1</span>
+              Send a DM on Instagram with your name and phone number.
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              Include the items &amp; quantity you'd like, plus your preferred collection date and time.
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              A confirmation text will be sent and payment collected then.
+            </li>
+          </ol>
+          <div class="order-handle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            @ivegotbakes
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /doc-body -->
+
+    <!-- FOOTER -->
+    <div class="doc-footer">
+      <span class="footer-brand">ivegotbakes</span>
+      <span class="footer-note">All items made to order &nbsp;·&nbsp; Singapore</span>
+      <p class="footer-credit">Website by <a href="https://www.instagram.com/de.makers.space/" target="_blank" rel="noopener noreferrer">De Makers Space</a></p>
+    </div>
+
+  </div>
+
+</body>
+</html>
